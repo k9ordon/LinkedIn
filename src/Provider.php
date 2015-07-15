@@ -37,7 +37,7 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function getUserByToken($token)
     {
         $response = $this->getHttpClient()->get(
-            'https://api.linkedin.com/v1/people/~:(id,formatted-name,picture-url,email-address)', [
+            'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address)', [
             'headers' => [
                 'Accept-Language' => 'en-US',
                 'x-li-format' => 'json',
@@ -55,8 +55,12 @@ class Provider extends AbstractProvider implements ProviderInterface
     {
         return (new User())->setRaw($user)->map([
             'id' => $user['id'], 'nickname' => null,
-            'name' => $user['formattedName'], 'email' => $user['emailAddress'],
+            'email' => $user['emailAddress'],
             'avatar' => array_get($user, 'pictureUrl'),
+            'user' => array_merge($user, array(
+              'first_name' => $user['firstName'],
+              'last_name' => $user['lastName'])
+            )
         ]);
     }
 
