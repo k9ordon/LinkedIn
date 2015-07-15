@@ -1,5 +1,5 @@
 {
-    "name": "socialiteproviders/linkedin",
+    "name": "k9ordon/linkedin",
     "description": "LinkedIn OAuth2 Provider for Laravel Socialite",
     "license": "MIT",
     "authors": [{
